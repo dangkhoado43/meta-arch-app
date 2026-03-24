@@ -118,7 +118,7 @@
                     @apply flex items-center space-x-2 cursor-pointer;
 
                     .logo {
-                        @apply w-6 h-6 text-black;
+                        @apply w-10 h-10 rounded-lg text-black;
                     }
 
                     .name {
@@ -411,15 +411,15 @@
                 @apply mb-8 inline-flex items-center px-3 py-1 rounded-md bg-white border border-zinc-200 shadow-sm;
 
                 .dot {
-                    @apply w-4 h-4 rounded bg-blue-100 flex items-center justify-center mr-2;
+                    @apply w-4 h-4 rounded bg-green-100 flex items-center justify-center mr-2;
 
                     .pulse {
-                        @apply w-2 h-2 rounded-full bg-blue-500 animate-pulse;
+                        @apply w-2 h-2 rounded-full bg-green-500 animate-pulse;
                     }
                 }
 
                 p {
-                    @apply text-[10px] font-bold uppercase tracking-widest text-zinc-600;
+                    @apply text-[10px] font-bold tracking-widest text-zinc-600;
                 }
             }
 

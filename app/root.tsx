@@ -18,6 +18,7 @@ import {
 import { DEFAULT_AUTH_STATE } from "lib/constants";
 
 export const links: Route.LinksFunction = () => [
+    { rel: "icon", href: "/logo.jpg" },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     {
         rel: "preconnect",
