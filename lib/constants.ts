@@ -4,6 +4,8 @@ export const DEFAULT_AUTH_STATE: AuthState = {
     userId: null,
 };
 
+export const PUTER_WORKER_URL = import.meta.env.VITE_PUTER_WORKER_URL || "";
+
 export const MAXIMUM_FILE_SIZE = 10; // 10MB
 export const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png"];
 

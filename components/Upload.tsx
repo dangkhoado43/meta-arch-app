@@ -24,6 +24,7 @@ const Upload = ({ onComplete }: UploadProps) => {
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const processingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const redirectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     const { isSignedIn, signIn } = useOutletContext<AuthContext>();
 
@@ -45,6 +46,12 @@ const Upload = ({ onComplete }: UploadProps) => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        if (!isSignedIn) {
+            resetUpload();
+        }
+    }, [isSignedIn]);
 
     const resetUpload = () => {
         if (intervalRef.current) {
@@ -72,14 +79,17 @@ const Upload = ({ onComplete }: UploadProps) => {
 
             if (intervalRef.current) {
                 clearInterval(intervalRef.current);
+                intervalRef.current = null;
             }
 
             if (processingTimeoutRef.current) {
                 clearTimeout(processingTimeoutRef.current);
+                processingTimeoutRef.current = null;
             }
 
             if (redirectTimeoutRef.current) {
                 clearTimeout(redirectTimeoutRef.current);
+                redirectTimeoutRef.current = null;
             }
 
             setFile(file);
@@ -115,7 +125,9 @@ const Upload = ({ onComplete }: UploadProps) => {
                     setProgress(MAX_PROGRESS);
 
                     redirectTimeoutRef.current = setTimeout(() => {
-                        onComplete?.(base64Data);
+                        if (isSignedIn) {
+                            onComplete?.(base64Data);
+                        }
                         redirectTimeoutRef.current = null;
                     }, REDIRECT_DELAY_MS);
                 }, PROCESSING_DELAY_MS);
@@ -132,7 +144,11 @@ const Upload = ({ onComplete }: UploadProps) => {
             } catch (e) {
                 console.error("Puter sign in failed:", e);
             }
+
+            return;
         }
+
+        inputRef.current?.click();
     };
 
     const handleDragOver = (e: React.DragEvent) => {
@@ -177,8 +193,9 @@ const Upload = ({ onComplete }: UploadProps) => {
                     onDrop={handleDrop}
                 >
                     <input
+                        ref={inputRef}
                         type="file"
-                        className="drop-input"
+                        className="drop-input hidden"
                         accept=".jpg,.jpeg,.png"
                         onChange={handleChange}
                     />
