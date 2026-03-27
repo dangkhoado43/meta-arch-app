@@ -11,6 +11,7 @@ import {
 import { CheckCircle2, ImageIcon, UploadIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useOutletContext } from "react-router";
+import Button from "./ui/Button";
 
 interface UploadProps {
     onComplete?: (base64Data: string) => void;
@@ -44,6 +45,26 @@ const Upload = ({ onComplete }: UploadProps) => {
             }
         };
     }, []);
+
+    const resetUpload = () => {
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
+
+        if (processingTimeoutRef.current) {
+            clearTimeout(processingTimeoutRef.current);
+            processingTimeoutRef.current = null;
+        }
+
+        if (redirectTimeoutRef.current) {
+            clearTimeout(redirectTimeoutRef.current);
+            redirectTimeoutRef.current = null;
+        }
+
+        setFile(null);
+        setProgress(0);
+    };
 
     const processFile = useCallback(
         (file: File) => {
@@ -202,6 +223,12 @@ const Upload = ({ onComplete }: UploadProps) => {
                                     ? "Analyzing Floor Plan..."
                                     : "Redirecting..."}
                             </p>
+                        </div>
+
+                        <div className="mt-4">
+                            <Button size="sm" onClick={resetUpload}>
+                                {progress < 100 ? "Cancel" : "Upload Another"}
+                            </Button>
                         </div>
                     </div>
                 </div>
