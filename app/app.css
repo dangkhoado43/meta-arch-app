@@ -77,15 +77,21 @@
         }
 
         &.btn--sm {
-            @apply px-3 py-1.5 text-xs uppercase tracking-wide;
+            @apply px-2 py-1 text-xs 
+               sm:px-3 sm:py-1.5 sm:text-sm uppercase tracking-wide;
         }
 
         &.btn--md {
-            @apply px-5 py-2.5 text-sm;
+            @apply px-3 py-1.5 text-sm 
+               sm:px-4 sm:py-2 
+               md:px-5 md:py-2.5 md:text-base;
         }
 
         &.btn--lg {
-            @apply px-8 py-3 text-sm uppercase tracking-wide font-bold;
+            @apply px-4 py-2 text-sm 
+               sm:px-6 sm:py-2.5 
+               md:px-8 md:py-3 md:text-base 
+               uppercase tracking-wide font-bold;
         }
 
         &.btn--full {
@@ -118,11 +124,11 @@
                     @apply flex items-center space-x-2 cursor-pointer;
 
                     .logo {
-                        @apply w-10 h-10 rounded-lg text-black;
+                        @apply w-8 h-8 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-lg text-black;
                     }
 
                     .name {
-                        @apply text-xl font-serif font-bold text-black tracking-tight;
+                        @apply text-sm sm:text-base md:text-lg lg:text-xl font-serif font-bold text-black tracking-tight;
                     }
                 }
 
