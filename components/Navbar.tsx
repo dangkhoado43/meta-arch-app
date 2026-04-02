@@ -28,7 +28,7 @@ const Navbar = () => {
             <nav className="inner">
                 <div className="left">
                     <div className="brand">
-                        <img className="logo" src="./logo.jpg" />
+                        <img className="logo" src="/logo.jpg" />
 
                         <span className="name">Meta Arch</span>
                     </div>

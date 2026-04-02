@@ -10,6 +10,14 @@ interface AuthContext extends AuthState {
     signOut: () => Promise<boolean>;
 }
 
+interface Material {
+    id: string;
+    name: string;
+    thumbnail: string;
+    type: "color" | "texture";
+    category: "floor" | "wall" | "furniture";
+}
+
 interface DesignItem {
     id: string;
     name?: string | null;
@@ -25,9 +33,57 @@ interface DesignItem {
     isPublic?: boolean;
 }
 
+interface DesignConfig {
+    floor: string;
+    walls: string;
+    style: string;
+}
+
 interface CreateProjectParams {
     item: DesignItem;
     visibility?: "private" | "public";
+}
+
+type RenderCompletePayload = {
+    renderedImage: string;
+    renderedPath?: string;
+};
+
+type VisualizerLocationState = {
+    initialImage?: string;
+    initialRender?: string | null;
+    ownerId?: string | null;
+    name?: string | null;
+    sharedBy?: string | null;
+};
+
+interface VisualizerProps {
+    onBack: () => void;
+    initialImage: string | null;
+    onRenderComplete?: (payload: RenderCompletePayload) => void;
+    onShare?: (image: string) => Promise<void> | void;
+    onUnshare?: (image: string) => Promise<void> | void;
+    projectName?: string;
+    projectId?: string;
+    initialRender?: string | null;
+    isPublic?: boolean;
+    sharedBy?: string | null;
+    canUnshare?: boolean;
+}
+
+interface UploadProps {
+    onComplete: (base64File: string) => Promise<boolean | void> | boolean | void;
+    className?: string;
+}
+
+type ShareAction = "share" | "unshare";
+type ShareStatus = "idle" | "saving" | "done";
+
+enum AppStatus {
+    IDLE = "IDLE",
+    UPLOADING = "UPLOADING",
+    PROCESSING = "PROCESSING",
+    READY = "READY",
 }
 
 type HostingConfig = { subdomain: string };
@@ -38,4 +94,9 @@ interface StoreHostedImageParams {
     url: string;
     projectId: string;
     label: "source" | "rendered";
+}
+
+interface Generate3DViewParams {
+    sourceImage: string;
+    projectId?: string | null;
 }

@@ -281,19 +281,19 @@
                 @apply flex items-center space-x-2 cursor-pointer;
 
                 .logo {
-                    @apply w-6 h-6 text-black;
+                    @apply w-8 h-8 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-lg text-black;
                 }
 
                 .name {
-                    @apply text-xl font-serif font-bold text-black tracking-tight;
+                    @apply text-sm sm:text-base md:text-lg lg:text-xl font-serif font-bold text-black tracking-tight;
                 }
             }
 
             .exit {
-                @apply text-zinc-500 hover:text-black hover:bg-zinc-100;
+                @apply text-sm sm:text-base md:text-lg lg:text-xl text-zinc-500 hover:text-black hover:bg-zinc-100;
 
                 .icon {
-                    @apply w-5 h-5 mr-2;
+                    @apply w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 mr-2;
                 }
             }
         }
@@ -386,6 +386,10 @@
 
                 .panel-header {
                     @apply flex items-center justify-between;
+
+                    .panel-meta {
+                        @apply flex flex-col items-center;
+                    }
 
                     .hint {
                         @apply text-xs text-zinc-400;

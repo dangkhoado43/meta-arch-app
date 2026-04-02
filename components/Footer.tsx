@@ -41,7 +41,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex-1 flex justify-center md:justify-end">
-                    <p className="text-xs">© 2026 Meta Arch</p>
+                    <p className="text-xs">© 2026 DDK</p>
                 </div>
             </div>
         </footer>
