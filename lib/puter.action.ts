@@ -22,9 +22,8 @@ export const createProject = async ({
     item,
     visibility = "private",
 }: CreateProjectParams): Promise<DesignItem | null | undefined> => {
-    console.log("puter worker url", PUTER_WORKER_URL);
     if (!PUTER_WORKER_URL) {
-        console.warn("Missing VITE_PUTER_WORKER_URL; skip history fetch;");
+        console.warn("Missing VITE_PUTER_WORKER_URL; skipping project save;");
         return null;
     }
     const projectId = item.id;
@@ -106,7 +105,7 @@ export const createProject = async ({
 
 export const getProjects = async () => {
     if (!PUTER_WORKER_URL) {
-        console.warn("Missing VITE_PUTER_WORKER_URL; skip history fetch;");
+        console.warn("Missing VITE_PUTER_WORKER_URL; skipping projects fetch;");
         return [];
     }
 
@@ -138,15 +137,11 @@ export const getProjectById = async ({ id }: { id: string }) => {
         return null;
     }
 
-    console.log("Fetching project with ID:", id);
-
     try {
         const response = await puter.workers.exec(
             `${PUTER_WORKER_URL}/api/projects/get?id=${encodeURIComponent(id)}`,
             { method: "GET" },
         );
-
-        console.log("Fetch project response:", response);
 
         if (!response.ok) {
             console.error("Failed to fetch project:", await response.text());
@@ -156,8 +151,6 @@ export const getProjectById = async ({ id }: { id: string }) => {
         const data = (await response.json()) as {
             project?: DesignItem | null;
         };
-
-        console.log("Fetched project data:", data);
 
         return data?.project ?? null;
     } catch (error) {
